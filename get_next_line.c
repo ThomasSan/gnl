@@ -13,7 +13,6 @@
 #include <sys/uio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "get_next_line.h"
 #include "libft/libft.h"
 
@@ -89,13 +88,13 @@ int		get_line_len(int const fd, char **dst)
 			return (-2);
 		buf[ret] = '\0';
 		tmp1 = *dst;
-		if (*dst == NULL)
+		if (*dst == NULL && buf[0])
 			*dst = ft_strdup(buf);
-		else
+		else if (*dst)
 			*dst = ft_strjoin(*dst, buf);
 		free(tmp1);
 	}
-	if (ret == 0 && i == -1 && ft_strcmp("", *dst))
+	if (ret == 0 && i == -1 && *dst && ft_strcmp("", *dst))
 	{
 		*dst = ft_strjoin(*dst, "\n");
 		i = (ft_strlen(*dst) - 1);
